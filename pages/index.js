@@ -1,7 +1,8 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import styles from '../styles/Home.module.css'
-import { Hamburger, Logo } from 'itechartsitewrapper'
+import { useState } from 'react';
+import Head from 'next/head';
+import Image from 'next/image';
+import styles from '../styles/Home.module.css';
+import { Hamburger, Logo } from 'itechartsitewrapper';
 
 export default function Home() {
   return (
