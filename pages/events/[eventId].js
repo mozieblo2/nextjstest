@@ -17,12 +17,18 @@ const SingleEventPage = (props) => {
     )
 }
 
-export async function getStaticProps(context) {
-    // console.log('CONTEXT: ', context);
-    const { params } = context;
+async function getData() {
     const filePath = path.join(process.cwd(), 'data', 'dummy-data.json');
     const jsonData = await fs.readFile(filePath);
     const data = JSON.parse(jsonData);
+
+    return data;
+}
+
+export async function getStaticProps(context) {
+    // console.log('CONTEXT: ', context);
+    const { params } = context;
+    const data = await getData();
 
     const product = data.products.find(product => product.id === params.eventId);
 
@@ -37,18 +43,16 @@ export async function getStaticProps(context) {
 // because next.js doesn't know this -> then next.js knows that this is 4 pages ->
 // then getStaticProps is executed
 export async function getStaticPaths() {
-    return {
-        paths: [
-            { params: { eventId: 'p1' }}
-            // { params: { eventId: 'p2' }},
-            // { params: { eventId: 'p3' }},
-            // { params: { eventId: 'p4' }}
-        ],
+    const data = await getData();
+    const ids = data.products.map(product => product.id)
+    const pathWithParams = ids.map((id) => ({ params: { eventId: id }}));
 
+    return {
+        paths: pathWithParams,
         // fallback is useful if we have millions of pages, this pre generate pages just in time,
         // when we click on link for example - pre generate is only in paths
         // is also 'blocking' value - you don't have to write return statement in case empty data, it's loaded but in late
-        fallback: true
+        fallback: false
     }
 }
 
