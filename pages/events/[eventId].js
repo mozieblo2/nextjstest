@@ -32,6 +32,12 @@ export async function getStaticProps(context) {
 
     const product = data.products.find(product => product.id === params.eventId);
 
+    if (!product) {
+        return {
+            notFound: true
+        }
+    }
+
     return {
         props: {
             loadedProduct: product
@@ -52,7 +58,7 @@ export async function getStaticPaths() {
         // fallback is useful if we have millions of pages, this pre generate pages just in time,
         // when we click on link for example - pre generate is only in paths
         // is also 'blocking' value - you don't have to write return statement in case empty data, it's loaded but in late
-        fallback: false
+        fallback: true
     }
 }
 
