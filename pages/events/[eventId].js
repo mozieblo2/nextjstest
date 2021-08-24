@@ -3,6 +3,11 @@ import fs from "fs/promises";
 
 const SingleEventPage = (props) => {
     const { loadedProduct } = props;
+
+    if (!loadedProduct) {
+        return <p>Loading...</p>
+    }
+
     return (
         <div>
             <h1>Single event Page</h1>
@@ -34,12 +39,16 @@ export async function getStaticProps(context) {
 export async function getStaticPaths() {
     return {
         paths: [
-            { params: { eventId: 'p1' }},
-            { params: { eventId: 'p2' }},
-            { params: { eventId: 'p3' }},
-            { params: { eventId: 'p4' }}
+            { params: { eventId: 'p1' }}
+            // { params: { eventId: 'p2' }},
+            // { params: { eventId: 'p3' }},
+            // { params: { eventId: 'p4' }}
         ],
-        fallback: false
+
+        // fallback is useful if we have millions of pages, this pre generate pages just in time,
+        // when we click on link for example - pre generate is only in paths
+        // is also 'blocking' value - you don't have to write return statement in case empty data, it's loaded but in late
+        fallback: true
     }
 }
 
