@@ -2,7 +2,6 @@ import fs from 'fs/promises';
 import path from 'path';
 import Link from 'next/link';
 
-
 const AllEventsPage = (props) => {
     const { products } = props
     return (
