@@ -14,13 +14,17 @@ const Films = (props) => {
                         <p>PRODUCER: {film.producer}</p>
                         <p>RELEASE DATE: {film.release_date}</p>
                         <ul>CHARACTERS: {
-                            film.characters.map(character => (
-                                <li key={character}>
-                                    <Link href={character}>
-                                        {character}
-                                    </Link>
-                                </li>
-                            ))
+                            film.characters.map(character => {
+                                const peopleNumber = character.split('/')[character.split('/').length - 2];
+
+                                return (
+                                    <li key={character}>
+                                        <Link href={`/character/${peopleNumber}`}>
+                                            {`People: ${peopleNumber}`}
+                                        </Link>
+                                    </li>
+                                )
+                            })
                         }
                         </ul>
                     </li>
