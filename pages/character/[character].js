@@ -29,6 +29,12 @@ export async function getStaticProps(context) {
         }
     }
 
+    if (data?.detail === 'Not found') {
+        return {
+            notFound: true
+        }
+    }
+
     return {
         props: {
             character: data
