@@ -12,6 +12,7 @@ const Character = (props) => {
             <p>{eye_color}</p>
             <p>{name}</p>
             <p>{birth_year}</p>
+            <p>test</p>
         </div>
     )
 }
